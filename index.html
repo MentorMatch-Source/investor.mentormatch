@@ -173,6 +173,133 @@
     .section-rule::after {
       content: ''; flex: 1; height: 1px; background: #1A1A1A;
     }
+
+    /* ══ HAMBURGER ══════════════════════════════════ */
+    #nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px; height: 36px;
+      background: none; border: none; cursor: pointer; padding: 2px;
+      flex-shrink: 0;
+    }
+    #nav-toggle span {
+      display: block; height: 1px; width: 100%;
+      background: rgba(255,255,255,0.8);
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    #nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    #nav-toggle.open span:nth-child(2) { opacity: 0; }
+    #nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    #mobile-nav {
+      display: none;
+      position: fixed; top: 65px; left: 0; right: 0;
+      background: rgba(0,0,0,.97);
+      border-bottom: 1px solid #1A1A1A;
+      padding: 24px 20px 32px;
+      z-index: 49;
+      flex-direction: column;
+    }
+    #mobile-nav.open { display: flex; }
+    #mobile-nav .nav-link {
+      padding: 16px 0;
+      border-bottom: 1px solid #111;
+      font-size: .75rem;
+    }
+    #mobile-nav .mob-cta { margin-top: 20px; text-align: center; }
+
+    /* ══ TABLET — 768px – 1023px ════════════════════ */
+    @media (max-width: 1023px) {
+      .mw { padding-left: 32px !important; padding-right: 32px !important; }
+      #grid-ia            { grid-template-columns: 1fr !important; gap: 48px !important; }
+      #grid-modelo-intro  { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #grid-projection    { grid-template-columns: 1fr 1fr !important; }
+      #grid-projection > div { border-right: none !important; padding: 24px 16px !important; }
+      #grid-projection > div:first-child { padding-left: 0 !important; }
+      #grid-projection > div:last-child  { padding-right: 0 !important; }
+      #grid-market-nums   { grid-template-columns: 1fr 1fr !important; }
+      #grid-market-nums > div:nth-child(2) { border-right: none !important; }
+      #grid-market-nums > div:nth-child(3) { padding: 56px 0 56px 48px !important; border-top: 1px solid #1A1A1A; border-right: none !important; }
+      #grid-segments      { grid-template-columns: 1fr 1fr !important; }
+      #grid-features      { grid-template-columns: 1fr 1fr !important; }
+      #footer-grid        { grid-template-columns: 1fr 1fr !important; gap: 48px !important; }
+      #box-projection     { padding: 40px 32px !important; }
+    }
+
+    /* ══ MOBILE — ≤ 767px ═══════════════════════════ */
+    @media (max-width: 767px) {
+      .mw { padding-left: 20px !important; padding-right: 20px !important; }
+
+      /* Nav */
+      #nav-cta    { display: none !important; }
+      #nav-toggle { display: flex !important; }
+
+      /* Sections */
+      #problema, #solucao, #ia, #modelo, #mercado, #visao {
+        padding-top: 64px !important; padding-bottom: 64px !important;
+      }
+      #contato .mw { padding-top: 72px !important; padding-bottom: 72px !important; }
+      .section-rule { margin-bottom: 40px !important; }
+
+      /* Hero */
+      #hero-content { padding-bottom: 52px !important; }
+      #scroll-ind   { display: none !important; }
+
+      /* Divider image */
+      #divider-img  { height: 260px !important; }
+
+      /* Stats bar — 2×2 */
+      #stats-grid { grid-template-columns: 1fr 1fr !important; }
+      #stats-s1 { padding: 0 20px 28px 0 !important; border-right: 1px solid #1A1A1A !important; border-bottom: 1px solid #1A1A1A !important; }
+      #stats-s2 { padding: 0 0 28px 20px !important; border-right: none !important; border-bottom: 1px solid #1A1A1A !important; }
+      #stats-s3 { padding: 28px 20px 0 0 !important; border-right: 1px solid #1A1A1A !important; }
+      #stats-s4 { padding: 28px 0 0 20px !important; }
+
+      /* 2-col grids → stack */
+      #grid-problema, #grid-solucao-intro,
+      #grid-ia, #grid-visao-intro {
+        grid-template-columns: 1fr !important; gap: 40px !important;
+      }
+      #grid-modelo-intro { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+      /* Feature cards → 1 col */
+      #grid-features { grid-template-columns: 1fr !important; border-left: none !important; border-top: none !important; }
+      #grid-features > * { border-right: 1px solid #1A1A1A !important; border-left: 1px solid #1A1A1A !important; }
+
+      /* Revenue streams → 1 col */
+      #grid-revenue { grid-template-columns: 1fr !important; }
+
+      /* Projection → 2 col compact */
+      #box-projection  { padding: 28px 20px !important; }
+      #grid-projection { grid-template-columns: 1fr 1fr !important; }
+      #grid-projection > div { border-right: none !important; padding: 20px 10px !important; }
+      #grid-projection > div:first-child { padding-left: 0 !important; border-right: 1px solid #1A1A1A !important; }
+      #grid-projection > div:last-child  { padding-right: 0 !important; }
+      #grid-projection .snum { font-size: 2rem !important; }
+
+      /* Market big numbers → 1 col */
+      #grid-market-nums { grid-template-columns: 1fr !important; }
+      #grid-market-nums > div { padding: 40px 0 !important; border-right: none !important; border-bottom: 1px solid #1A1A1A !important; }
+      #grid-market-nums > div:last-child { border-bottom: none !important; }
+
+      /* Market segments → 2 col */
+      #grid-segments { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+
+      /* Roadmap → 1 col */
+      #grid-roadmap { grid-template-columns: 1fr !important; border-left: 1px solid #1A1A1A !important; }
+      #grid-roadmap > div { border-right: 1px solid #1A1A1A !important; padding: 36px 24px !important; }
+
+      /* IA image */
+      #ia-img img { height: 240px !important; }
+
+      /* CTA stats dividers */
+      .stat-sep { display: none !important; }
+
+      /* Footer → 1 col */
+      #footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+    }
   </style>
 </head>
 
@@ -182,7 +309,7 @@
 <nav id="nav" class="fixed top-0 left-0 right-0 z-50">
   <div class="mw" style="padding-top:20px;padding-bottom:20px;display:flex;align-items:center;justify-content:space-between;">
     <a href="#" style="text-decoration:none;">
-      <span style="font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1;">MentorMatch</span>
+      <span style="font-family:'Playfair Display',Georgia,serif;font-size:1.45rem;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1;">MentorMatch</span>
     </a>
 
     <div class="hidden md:flex" style="gap:40px;align-items:center;">
@@ -193,9 +320,24 @@
       <a href="#mercado"  class="nav-link">Mercado</a>
     </div>
 
-    <a href="#contato" class="btn-ghost" style="font-size:.68rem;">Falar com o Time</a>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a id="nav-cta" href="#contato" class="btn-ghost" style="font-size:.68rem;">Falar com o Time</a>
+      <button id="nav-toggle" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
+
+<!-- Mobile nav drawer -->
+<div id="mobile-nav">
+  <a href="#problema" class="nav-link">O Problema</a>
+  <a href="#solucao"  class="nav-link">Plataforma</a>
+  <a href="#ia"       class="nav-link">Tecnologia</a>
+  <a href="#modelo"   class="nav-link">Modelo</a>
+  <a href="#mercado"  class="nav-link">Mercado</a>
+  <a href="#contato"  class="btn-w mob-cta">Falar com o Time</a>
+</div>
 
 
 <!-- ═══════════ HERO ═══════════ -->
@@ -203,9 +345,9 @@
 
   <!-- Cinematic full-bleed image -->
   <div style="position:absolute;inset:0;">
-    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&auto=format&fit=crop&q=88&sat=-20"
-         alt="Mentoria executiva"
-         style="width:100%;height:100%;object-fit:cover;object-position:center 25%;filter:brightness(.75) contrast(1.05);">
+    <img src="filipp-romanovski-mM9U2M5PVHE-unsplash.jpg"
+         alt="Profissionais em sessão de mentoria — MentorMatch"
+         style="width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(.65) contrast(1.1);">
     <!-- Bottom-up dark gradient for text legibility -->
     <div style="position:absolute;inset:0;background:linear-gradient(to top, #000 0%, rgba(0,0,0,.7) 35%, rgba(0,0,0,.15) 70%, transparent 100%);"></div>
     <!-- Subtle left vignette -->
@@ -213,7 +355,7 @@
   </div>
 
   <!-- Hero text — anchored to bottom like MasterClass -->
-  <div class="mw" style="position:relative;width:100%;padding-bottom:80px;">
+  <div id="hero-content" class="mw" style="position:relative;width:100%;padding-bottom:80px;">
     <div style="max-width:860px;">
 
       <div class="lbl" style="color:#C8A455;margin-bottom:22px;">
@@ -236,7 +378,7 @@
   </div>
 
   <!-- Scroll indicator -->
-  <div style="position:absolute;bottom:28px;right:48px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.4;">
+  <div id="scroll-ind" style="position:absolute;bottom:28px;right:48px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.4;">
     <div style="width:1px;height:40px;background:linear-gradient(to bottom,transparent,#fff);"></div>
     <span style="font-size:.6rem;letter-spacing:.15em;color:#fff;text-transform:uppercase;writing-mode:vertical-lr;">Rolar</span>
   </div>
@@ -246,24 +388,24 @@
 <!-- ═══════════ STATS BAR ═══════════ -->
 <div style="background:#000;border-top:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
   <div class="mw" style="padding-top:44px;padding-bottom:44px;">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);">
+    <div id="stats-grid" style="display:grid;grid-template-columns:repeat(4,1fr);">
 
-      <div style="padding:0 40px 0 0;border-right:1px solid #1A1A1A;">
+      <div id="stats-s1" style="padding:0 40px 0 0;border-right:1px solid #1A1A1A;">
         <div class="snum rv" style="font-size:3.2rem;color:#fff;margin-bottom:8px;">200+</div>
         <div class="lbl">Mentores Qualificados</div>
       </div>
 
-      <div style="padding:0 40px 0 40px;border-right:1px solid #1A1A1A;">
+      <div id="stats-s2" style="padding:0 40px 0 40px;border-right:1px solid #1A1A1A;">
         <div class="snum rv d1" style="font-size:3.2rem;color:#fff;margin-bottom:8px;">1.200+</div>
         <div class="lbl">Sessões Realizadas</div>
       </div>
 
-      <div style="padding:0 40px 0 40px;border-right:1px solid #1A1A1A;">
+      <div id="stats-s3" style="padding:0 40px 0 40px;border-right:1px solid #1A1A1A;">
         <div class="snum rv d2" style="font-size:3.2rem;color:#fff;margin-bottom:8px;">98%</div>
         <div class="lbl">Satisfação dos Mentorados</div>
       </div>
 
-      <div style="padding:0 0 0 40px;">
+      <div id="stats-s4" style="padding:0 0 0 40px;">
         <div class="snum rv d3" style="font-size:3.2rem;color:#C8A455;margin-bottom:8px;">R$2M+</div>
         <div class="lbl">Em Sessões Realizadas</div>
       </div>
@@ -282,7 +424,7 @@
     </div>
 
     <!-- Editorial split — NYT-style -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start;margin-bottom:96px;">
+    <div id="grid-problema" style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start;margin-bottom:96px;">
 
       <!-- Left: large statement -->
       <div class="rvl">
@@ -331,10 +473,10 @@
 
 
 <!-- ═══════════ FULL-BLEED DIVIDER IMAGE ═══════════ -->
-<div class="zoom" style="height:480px;position:relative;">
-  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1800&auto=format&fit=crop&q=85&sat=-15"
-       alt="Strategic discussion"
-       style="width:100%;height:100%;object-fit:cover;object-position:center 40%;filter:brightness(.55) contrast(1.1);">
+<div id="divider-img" class="zoom" style="height:480px;position:relative;">
+  <img src="muradi-2eOavEeZmuQ-unsplash.jpg"
+       alt="Profissionais em colaboração — MentorMatch"
+       style="width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:brightness(.52) contrast(1.1);">
   <div style="position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;">
     <div style="text-align:center;padding:0 40px;">
       <p class="display" style="font-size:clamp(1.8rem,4vw,3rem);color:#fff;max-width:800px;margin:0 auto;">
@@ -353,7 +495,7 @@
       <span class="lbl">A Plataforma</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:80px;">
+    <div id="grid-solucao-intro" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:80px;">
       <div class="rvl">
         <h2 class="display" style="font-size:clamp(2.8rem,5vw,4rem);color:#fff;margin-bottom:24px;">
           Uma plataforma que amplifica cada sessão.
@@ -370,7 +512,7 @@
     </div>
 
     <!-- Features — editorial 3-column grid -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
+    <div id="grid-features" style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
 
       <div class="card rv d1" style="border:none;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;padding:40px 36px;">
         <div class="lbl" style="margin-bottom:20px;color:#C8A455;">01</div>
@@ -421,13 +563,13 @@
       <span class="lbl">Tecnologia</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
+    <div id="grid-ia" style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
 
       <!-- Left: Image -->
-      <div class="rvl zoom" style="border:1px solid #1A1A1A;">
-        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&auto=format&fit=crop&q=85&sat=-30"
-             alt="Inteligência Artificial"
-             style="width:100%;height:500px;object-fit:cover;display:block;filter:brightness(.7) contrast(1.1);">
+      <div id="ia-img" class="rvl" style="display:flex;align-items:center;justify-content:center;background:#000;">
+        <img src="shawn-day-ZnkHPagIOlM-unsplash.jpg"
+             alt="Inteligência Artificial — MentorMatch"
+             style="width:100%;height:auto;max-height:520px;object-fit:contain;display:block;filter:brightness(.85) contrast(1.05);">
       </div>
 
       <!-- Right: Flow -->
@@ -497,7 +639,7 @@
       <span class="lbl">Modelo de Negócio</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;margin-bottom:80px;">
+    <div id="grid-modelo-intro" style="display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;margin-bottom:80px;">
       <div class="rvl">
         <h2 class="display" style="font-size:clamp(2.5rem,4.5vw,3.8rem);color:#fff;margin-bottom:20px;">
           Receita clara.<br>Escala previsível.
@@ -508,7 +650,7 @@
       </div>
 
       <!-- Revenue streams — editorial grid -->
-      <div class="rvr" style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
+      <div id="grid-revenue" class="rvr" style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
 
         <div style="padding:36px 32px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
           <div class="lbl" style="margin-bottom:16px;">Comissão por Sessão</div>
@@ -538,9 +680,9 @@
     </div>
 
     <!-- Revenue calculator — editorial -->
-    <div class="rv" style="border:1px solid #1A1A1A;padding:56px 56px;">
+    <div id="box-projection" class="rv" style="border:1px solid #1A1A1A;padding:56px 56px;">
       <div class="lbl" style="margin-bottom:32px;">Projeção de Escala</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border-top:1px solid #1A1A1A;">
+      <div id="grid-projection" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border-top:1px solid #1A1A1A;">
 
         <div style="padding:32px 32px 32px 0;border-right:1px solid #1A1A1A;">
           <div class="lbl" style="margin-bottom:14px;">Ticket Médio</div>
@@ -588,7 +730,7 @@
     </div>
 
     <!-- Big numbers — full width typographic -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;">
+    <div id="grid-market-nums" style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;">
 
       <div class="rv d1" style="padding:56px 48px 56px 0;border-right:1px solid #1A1A1A;">
         <div class="snum" style="font-size:clamp(3.5rem,7vw,5.5rem);color:#fff;margin-bottom:16px;">$5.9B</div>
@@ -612,7 +754,7 @@
 
     <!-- Market segments text -->
     <div style="margin-top:72px;padding-top:56px;border-top:1px solid #1A1A1A;">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:48px;">
+      <div id="grid-segments" style="display:grid;grid-template-columns:repeat(4,1fr);gap:48px;">
 
         <div class="rv d1">
           <div class="lbl" style="margin-bottom:12px;color:#C8A455;">Segmento 01</div>
@@ -653,7 +795,7 @@
       <span class="lbl">Visão de Futuro</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:80px;">
+    <div id="grid-visao-intro" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:80px;">
       <div class="rvl">
         <h2 class="display" style="font-size:clamp(2.5rem,4.5vw,3.8rem);color:#fff;margin-bottom:24px;">
           A infraestrutura digital para mentoria inteligente.
@@ -663,14 +805,14 @@
         </p>
       </div>
       <div class="rvr zoom" style="border:1px solid #1A1A1A;">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=85&sat=-20"
-             alt="Ambiente de inovação"
+        <img src="charlesdeluvio-Lks7vei-eAg-unsplash.jpg"
+             alt="Ambiente de inovação — MentorMatch"
              style="width:100%;height:280px;object-fit:cover;display:block;filter:brightness(.65) contrast(1.1);">
       </div>
     </div>
 
     <!-- Roadmap — 3 column editorial -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
+    <div id="grid-roadmap" style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
 
       <div class="rv d1" style="padding:44px 40px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
         <div class="lbl" style="margin-bottom:6px;">Fase Atual</div>
@@ -772,17 +914,17 @@
           <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1;margin-bottom:4px;">200+</div>
           <div class="lbl" style="color:#555;">Mentores</div>
         </div>
-        <div style="width:1px;height:32px;background:#2A2A2A;"></div>
+        <div class="stat-sep" style="width:1px;height:32px;background:#2A2A2A;"></div>
         <div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1;margin-bottom:4px;">1.200+</div>
           <div class="lbl" style="color:#555;">Sessões</div>
         </div>
-        <div style="width:1px;height:32px;background:#2A2A2A;"></div>
+        <div class="stat-sep" style="width:1px;height:32px;background:#2A2A2A;"></div>
         <div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1;margin-bottom:4px;">98%</div>
           <div class="lbl" style="color:#555;">Satisfação</div>
         </div>
-        <div style="width:1px;height:32px;background:#2A2A2A;"></div>
+        <div class="stat-sep" style="width:1px;height:32px;background:#2A2A2A;"></div>
         <div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#C8A455;line-height:1;margin-bottom:4px;">R$2M+</div>
           <div class="lbl" style="color:#555;">Realizados</div>
@@ -797,7 +939,7 @@
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer style="background:#000;border-top:1px solid #1A1A1A;padding:64px 0 40px;">
   <div class="mw">
-    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:64px;margin-bottom:56px;">
+    <div id="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:64px;margin-bottom:56px;">
 
       <div>
         <div style="font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:600;color:#fff;letter-spacing:-.01em;margin-bottom:16px;">MentorMatch</div>
@@ -866,12 +1008,19 @@
 
   document.querySelectorAll('.rv, .rvl, .rvr').forEach(el => io.observe(el));
 
-  /* ── Responsive: collapse grids on mobile ── */
-  function responsive() {
-    const w = window.innerWidth;
-    const cols2 = document.querySelectorAll('[data-grid2]');
-    cols2.forEach(el => {
-      el.style.gridTemplateColumns = w < 860 ? '1fr' : '1fr 1fr';
+  /* ── Hamburger menu ── */
+  const toggle    = document.getElementById('nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  if (toggle && mobileNav) {
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        mobileNav.classList.remove('open');
+      });
     });
   }
 </script>
