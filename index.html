@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MentorMatch — Plataforma de mentorias inteligentes que transforma sessões em crescimento estruturado.">
+  <title>MentorMatch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Type ────────────────────────────────────────────── */
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    .display {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 0.9;
+    }
+
+    .display-light {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .lbl {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    /* ── Colors ──────────────────────────────────────────── */
+    .gold    { color: #C8A455; }
+    .muted   { color: #666; }
+    .light   { color: #AAA; }
+
+    /* ── Buttons ─────────────────────────────────────────── */
+    .btn-w {
+      display: inline-block; text-decoration: none;
+      background: #fff; color: #000;
+      font-family: 'Inter', sans-serif; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 14px 38px;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+    .btn-w:hover { background: #C8A455; }
+
+    .btn-ghost {
+      display: inline-block; text-decoration: none;
+      background: transparent; color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 13px 38px;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.04); }
+
+    /* ── Dividers ────────────────────────────────────────── */
+    .rule    { height: 1px; background: #1A1A1A; }
+    .rule-g  { height: 1px; background: linear-gradient(90deg, transparent 0%, #C8A455 50%, transparent 100%); opacity: 0.5; }
+
+    /* ── Cards ───────────────────────────────────────────── */
+    .card {
+      border: 1px solid #1C1C1C;
+      background: #050505;
+      transition: border-color 0.35s ease;
+    }
+    .card:hover { border-color: #3A3A3A; }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    #nav {
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.35s ease, border-bottom-color 0.35s ease;
+    }
+    #nav.solid {
+      background: rgba(0,0,0,0.96);
+      border-bottom-color: #1A1A1A;
+    }
+
+    /* ── Scroll reveal ───────────────────────────────────── */
+    .rv  { opacity:0; transform:translateY(36px); transition: opacity .85s cubic-bezier(.4,0,.2,1), transform .85s cubic-bezier(.4,0,.2,1); }
+    .rvl { opacity:0; transform:translateX(-36px); transition: opacity .85s cubic-bezier(.4,0,.2,1), transform .85s cubic-bezier(.4,0,.2,1); }
+    .rvr { opacity:0; transform:translateX(36px);  transition: opacity .85s cubic-bezier(.4,0,.2,1), transform .85s cubic-bezier(.4,0,.2,1); }
+    .rv.on, .rvl.on, .rvr.on { opacity:1; transform:none; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
+    .d4{transition-delay:.4s} .d5{transition-delay:.5s} .d6{transition-delay:.6s}
+
+    /* ── Image zoom on hover ─────────────────────────────── */
+    .zoom { overflow: hidden; }
+    .zoom img { transition: transform .8s cubic-bezier(.4,0,.2,1); }
+    .zoom:hover img { transform: scale(1.04); }
+
+    /* ── Nav links ───────────────────────────────────────── */
+    .nav-link {
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65); text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav-link:hover { color: #fff; }
+
+    /* ── Stats number ────────────────────────────────────── */
+    .snum {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600; line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── Feature step num ────────────────────────────────── */
+    .step-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 600;
+      line-height: 1; color: #C8A455; opacity: 0.7;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── Pull quote ──────────────────────────────────────── */
+    .pull {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      color: #888; line-height: 1.4;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Revenue item ────────────────────────────────────── */
+    .rev-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600; font-size: 2.8rem;
+      color: #C8A455; line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #2A2A2A; }
+    ::selection { background: rgba(200,164,85,.2); color: #fff; }
+
+    /* ── Section max width ───────────────────────────────── */
+    .mw { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+    /* Full-bleed image section */
+    .img-section {
+      position: relative; overflow: hidden;
+    }
+
+    /* Horizontal rule with label */
+    .section-rule {
+      display: flex; align-items: center; gap: 24px;
+      margin-bottom: 72px;
+    }
+    .section-rule::after {
+      content: ''; flex: 1; height: 1px; background: #1A1A1A;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="mw" style="padding-top:20px;padding-bottom:20px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="#" style="text-decoration:none;">
+      <span style="font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1;">MentorMatch</span>
+    </a>
+
+    <div class="hidden md:flex" style="gap:40px;align-items:center;">
+      <a href="#problema" class="nav-link">O Problema</a>
+      <a href="#solucao"  class="nav-link">Plataforma</a>
+      <a href="#ia"       class="nav-link">Tecnologia</a>
+      <a href="#modelo"   class="nav-link">Modelo</a>
+      <a href="#mercado"  class="nav-link">Mercado</a>
+    </div>
+
+    <a href="#contato" class="btn-ghost" style="font-size:.68rem;">Falar com o Time</a>
+  </div>
+</nav>
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="inicio" style="position:relative;height:100svh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;">
+
+  <!-- Cinematic full-bleed image -->
+  <div style="position:absolute;inset:0;">
+    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&auto=format&fit=crop&q=88&sat=-20"
+         alt="Mentoria executiva"
+         style="width:100%;height:100%;object-fit:cover;object-position:center 25%;filter:brightness(.75) contrast(1.05);">
+    <!-- Bottom-up dark gradient for text legibility -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to top, #000 0%, rgba(0,0,0,.7) 35%, rgba(0,0,0,.15) 70%, transparent 100%);"></div>
+    <!-- Subtle left vignette -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,.4) 0%, transparent 50%);"></div>
+  </div>
+
+  <!-- Hero text — anchored to bottom like MasterClass -->
+  <div class="mw" style="position:relative;width:100%;padding-bottom:80px;">
+    <div style="max-width:860px;">
+
+      <div class="lbl" style="color:#C8A455;margin-bottom:22px;">
+        Plataforma de Mentorias Inteligentes
+      </div>
+
+      <h1 class="display" style="font-size:clamp(3.2rem,7vw,6rem);color:#fff;margin-bottom:28px;">
+        Transforme experiência<br>em crescimento <em style="color:#C8A455;font-style:italic;">real.</em>
+      </h1>
+
+      <p style="font-size:.95rem;color:#AAA;line-height:1.85;max-width:520px;margin-bottom:44px;font-weight:300;">
+        MentorMatch conecta profissionais experientes a pessoas que querem evoluir — com orientação estratégica e inteligência artificial que transforma cada sessão em um plano de ação concreto.
+      </p>
+
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="#solucao" class="btn-w">Conhecer a Plataforma</a>
+        <a href="#contato" class="btn-ghost">Solicitar Apresentação</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:28px;right:48px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.4;">
+    <div style="width:1px;height:40px;background:linear-gradient(to bottom,transparent,#fff);"></div>
+    <span style="font-size:.6rem;letter-spacing:.15em;color:#fff;text-transform:uppercase;writing-mode:vertical-lr;">Rolar</span>
+  </div>
+</section>
+
+
+<!-- ═══════════ STATS BAR ═══════════ -->
+<div style="background:#000;border-top:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+  <div class="mw" style="padding-top:44px;padding-bottom:44px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);">
+
+      <div style="padding:0 40px 0 0;border-right:1px solid #1A1A1A;">
+        <div class="snum rv" style="font-size:3.2rem;color:#fff;margin-bottom:8px;">200+</div>
+        <div class="lbl">Mentores Qualificados</div>
+      </div>
+
+      <div style="padding:0 40px 0 40px;border-right:1px solid #1A1A1A;">
+        <div class="snum rv d1" style="font-size:3.2rem;color:#fff;margin-bottom:8px;">1.200+</div>
+        <div class="lbl">Sessões Realizadas</div>
+      </div>
+
+      <div style="padding:0 40px 0 40px;border-right:1px solid #1A1A1A;">
+        <div class="snum rv d2" style="font-size:3.2rem;color:#fff;margin-bottom:8px;">98%</div>
+        <div class="lbl">Satisfação dos Mentorados</div>
+      </div>
+
+      <div style="padding:0 0 0 40px;">
+        <div class="snum rv d3" style="font-size:3.2rem;color:#C8A455;margin-bottom:8px;">R$2M+</div>
+        <div class="lbl">Em Sessões Realizadas</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ O PROBLEMA ═══════════ -->
+<section id="problema" style="padding:120px 0;background:#000;">
+  <div class="mw">
+
+    <div class="section-rule rv">
+      <span class="lbl">O Problema</span>
+    </div>
+
+    <!-- Editorial split — NYT-style -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start;margin-bottom:96px;">
+
+      <!-- Left: large statement -->
+      <div class="rvl">
+        <h2 class="display" style="font-size:clamp(2.8rem,5vw,4.2rem);color:#fff;margin-bottom:32px;">
+          A mentoria tradicional não escala.
+        </h2>
+        <p class="pull" style="font-size:1.5rem;margin-bottom:32px;">
+          "O modelo atual de mentoria desperdiça o ativo mais valioso do mundo: a experiência humana."
+        </p>
+        <div class="rule"></div>
+        <p style="font-size:.875rem;color:#666;line-height:1.85;margin-top:24px;font-weight:300;">
+          Essas barreiras custam ao Brasil bilhões em potencial humano não desenvolvido todos os anos.
+        </p>
+      </div>
+
+      <!-- Right: 4 pain points -->
+      <div>
+        <div class="rv" style="padding-bottom:36px;border-bottom:1px solid #1A1A1A;margin-bottom:36px;">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">01</div>
+          <h3 style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:.01em;">Tempo Limitado</h3>
+          <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Mentores experientes têm agenda escassa. Cada sessão é um recurso finito que precisa ser absolutamente maximizado.</p>
+        </div>
+
+        <div class="rv d1" style="padding-bottom:36px;border-bottom:1px solid #1A1A1A;margin-bottom:36px;">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">02</div>
+          <h3 style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:.01em;">Conhecimento Perdido</h3>
+          <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">80% dos insights se perdem após a sessão. Não existe registro estruturado. O valor evaporа no ar.</p>
+        </div>
+
+        <div class="rv d2" style="padding-bottom:36px;border-bottom:1px solid #1A1A1A;margin-bottom:36px;">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">03</div>
+          <h3 style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:.01em;">Alto Custo de Acesso</h3>
+          <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Mentores qualificados cobram entre R$500 e R$3.000 por hora. Orientação estratégica é privilégio de poucos.</p>
+        </div>
+
+        <div class="rv d3">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">04</div>
+          <h3 style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:.01em;">Matching Ineficiente</h3>
+          <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Encontrar o mentor certo depende de indicações e sorte. Não existe um sistema inteligente baseado em objetivos.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════ FULL-BLEED DIVIDER IMAGE ═══════════ -->
+<div class="zoom" style="height:480px;position:relative;">
+  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1800&auto=format&fit=crop&q=85&sat=-15"
+       alt="Strategic discussion"
+       style="width:100%;height:100%;object-fit:cover;object-position:center 40%;filter:brightness(.55) contrast(1.1);">
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;">
+    <div style="text-align:center;padding:0 40px;">
+      <p class="display" style="font-size:clamp(1.8rem,4vw,3rem);color:#fff;max-width:800px;margin:0 auto;">
+        "Não apenas uma conversa.<br>Um <em style="color:#C8A455;">sistema contínuo</em> de evolução."
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ A PLATAFORMA ═══════════ -->
+<section id="solucao" style="padding:120px 0;background:#000;">
+  <div class="mw">
+
+    <div class="section-rule rv">
+      <span class="lbl">A Plataforma</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:80px;">
+      <div class="rvl">
+        <h2 class="display" style="font-size:clamp(2.8rem,5vw,4rem);color:#fff;margin-bottom:24px;">
+          Uma plataforma que amplifica cada sessão.
+        </h2>
+        <p style="font-size:.95rem;color:#666;line-height:1.85;font-weight:300;">
+          MentorMatch não é um marketplace comum. É um sistema completo que transforma cada sessão em crescimento estruturado, documentado e continuamente acompanhado.
+        </p>
+      </div>
+      <div class="rvr" style="padding-top:12px;">
+        <p style="font-size:1.25rem;color:#888;line-height:1.7;font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;">
+          Cada funcionalidade foi concebida para eliminar o desperdício de conhecimento e maximizar o retorno de cada hora de mentoria.
+        </p>
+      </div>
+    </div>
+
+    <!-- Features — editorial 3-column grid -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
+
+      <div class="card rv d1" style="border:none;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;padding:40px 36px;">
+        <div class="lbl" style="margin-bottom:20px;color:#C8A455;">01</div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;letter-spacing:.01em;">Marketplace de Mentores</h3>
+        <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Perfis verificados com especialidades, avaliações e histórico. Matching inteligente baseado nos seus objetivos de crescimento.</p>
+      </div>
+
+      <div class="card rv d2" style="border:none;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;padding:40px 36px;">
+        <div class="lbl" style="margin-bottom:20px;color:#C8A455;">02</div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;letter-spacing:.01em;">Agendamento Inteligente</h3>
+        <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Calendário sincronizado, lembretes automáticos e gestão de disponibilidade em tempo real. Zero atrito no processo.</p>
+      </div>
+
+      <div class="card rv d3" style="border:none;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;padding:40px 36px;">
+        <div class="lbl" style="margin-bottom:20px;color:#C8A455;">03</div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;letter-spacing:.01em;">Sessões Online Estruturadas</h3>
+        <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Videoconferência integrada com pauta pré-definida e framework de perguntas estratégicas que guiam a conversa.</p>
+      </div>
+
+      <div class="card rv d2" style="border:none;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;padding:40px 36px;">
+        <div class="lbl" style="margin-bottom:20px;color:#C8A455;">04</div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;letter-spacing:.01em;">Transcrição Automática</h3>
+        <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Toda sessão é transcrita automaticamente. Nenhum insight se perde. O conhecimento fica registrado para sempre.</p>
+      </div>
+
+      <div class="card rv d3" style="border:none;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;padding:40px 36px;">
+        <div class="lbl" style="margin-bottom:20px;color:#C8A455;">05</div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;letter-spacing:.01em;">Resumos Gerados por IA</h3>
+        <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">IA analisa a transcrição e gera um resumo executivo com pontos-chave, decisões e próximos passos claros.</p>
+      </div>
+
+      <div class="card rv d4" style="border:none;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;padding:40px 36px;">
+        <div class="lbl" style="margin-bottom:20px;color:#C8A455;">06</div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;letter-spacing:.01em;">Acompanhamento da Evolução</h3>
+        <p style="font-size:.875rem;color:#666;line-height:1.8;font-weight:300;">Dashboard com histórico de jornada, metas alcançadas e evolução de competências ao longo do tempo.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ TECNOLOGIA / IA ═══════════ -->
+<section id="ia" style="padding:120px 0;background:#060606;border-top:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+  <div class="mw">
+
+    <div class="section-rule rv">
+      <span class="lbl">Tecnologia</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
+
+      <!-- Left: Image -->
+      <div class="rvl zoom" style="border:1px solid #1A1A1A;">
+        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&auto=format&fit=crop&q=85&sat=-30"
+             alt="Inteligência Artificial"
+             style="width:100%;height:500px;object-fit:cover;display:block;filter:brightness(.7) contrast(1.1);">
+      </div>
+
+      <!-- Right: Flow -->
+      <div class="rvr">
+        <h2 class="display" style="font-size:clamp(2.4rem,4vw,3.5rem);color:#fff;margin-bottom:16px;">
+          Mais que uma mentoria.
+        </h2>
+        <h2 class="display-light" style="font-size:clamp(2.4rem,4vw,3.5rem);color:#666;margin-bottom:40px;">
+          Um sistema de evolução contínua.
+        </h2>
+
+        <!-- Steps -->
+        <div style="display:flex;flex-direction:column;gap:0;">
+
+          <div style="display:flex;gap:28px;align-items:flex-start;padding:28px 0;border-bottom:1px solid #1A1A1A;">
+            <div class="step-n">01</div>
+            <div>
+              <div style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:.01em;">Sessão de Mentoria</div>
+              <div style="font-size:.8rem;color:#555;line-height:1.8;font-weight:300;">Mentor e mentorado se conectam com pauta estruturada e objetivos claros.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:28px;align-items:flex-start;padding:28px 0;border-bottom:1px solid #1A1A1A;">
+            <div class="step-n">02</div>
+            <div>
+              <div style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:.01em;">Transcrição em Tempo Real</div>
+              <div style="font-size:.8rem;color:#555;line-height:1.8;font-weight:300;">IA transcreve automaticamente, identificando falantes e momentos-chave.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:28px;align-items:flex-start;padding:28px 0;border-bottom:1px solid #1A1A1A;">
+            <div class="step-n">03</div>
+            <div>
+              <div style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:.01em;">Resumo Estruturado por IA</div>
+              <div style="font-size:.8rem;color:#555;line-height:1.8;font-weight:300;">Resumo executivo com tópicos, decisões e aprendizados destacados.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:28px;align-items:flex-start;padding:28px 0;border-bottom:1px solid #1A1A1A;">
+            <div class="step-n">04</div>
+            <div>
+              <div style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:.01em;">Plano de Ação Concreto</div>
+              <div style="font-size:.8rem;color:#555;line-height:1.8;font-weight:300;">Tarefas priorizadas, prazos sugeridos e métricas de acompanhamento.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:28px;align-items:flex-start;padding:28px 0;">
+            <div class="step-n" style="color:#C8A455;opacity:1;">05</div>
+            <div>
+              <div style="font-size:.875rem;font-weight:600;color:#C8A455;margin-bottom:6px;letter-spacing:.01em;">Acompanhamento Contínuo</div>
+              <div style="font-size:.8rem;color:#555;line-height:1.8;font-weight:300;">Dashboard com progresso das metas e histórico completo da jornada.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ MODELO DE NEGÓCIO ═══════════ -->
+<section id="modelo" style="padding:120px 0;background:#000;">
+  <div class="mw">
+
+    <div class="section-rule rv">
+      <span class="lbl">Modelo de Negócio</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;margin-bottom:80px;">
+      <div class="rvl">
+        <h2 class="display" style="font-size:clamp(2.5rem,4.5vw,3.8rem);color:#fff;margin-bottom:20px;">
+          Receita clara.<br>Escala previsível.
+        </h2>
+        <p style="font-size:.875rem;color:#555;line-height:1.85;font-weight:300;">
+          Múltiplos fluxos de receita com alta retenção e potencial de crescimento composto.
+        </p>
+      </div>
+
+      <!-- Revenue streams — editorial grid -->
+      <div class="rvr" style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
+
+        <div style="padding:36px 32px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+          <div class="lbl" style="margin-bottom:16px;">Comissão por Sessão</div>
+          <div class="rev-val" style="margin-bottom:10px;">30%</div>
+          <p style="font-size:.8rem;color:#555;line-height:1.7;font-weight:300;">Sobre cada sessão realizada na plataforma</p>
+        </div>
+
+        <div style="padding:36px 32px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+          <div class="lbl" style="margin-bottom:16px;">Assinatura Premium</div>
+          <div class="rev-val" style="margin-bottom:10px;">R$97<span style="font-size:1.2rem;color:#888;">/mês</span></div>
+          <p style="font-size:.8rem;color:#555;line-height:1.7;font-weight:300;">Mentorados com acesso a recursos avançados de IA</p>
+        </div>
+
+        <div style="padding:36px 32px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+          <div class="lbl" style="margin-bottom:16px;">Mentor Destaque</div>
+          <div class="rev-val" style="margin-bottom:10px;">R$197<span style="font-size:1.2rem;color:#888;">/mês</span></div>
+          <p style="font-size:.8rem;color:#555;line-height:1.7;font-weight:300;">Visibilidade prioritária e ferramentas avançadas</p>
+        </div>
+
+        <div style="padding:36px 32px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+          <div class="lbl" style="margin-bottom:16px;">Programas Estruturados</div>
+          <div class="rev-val" style="margin-bottom:10px;">R$1.5K+</div>
+          <p style="font-size:.8rem;color:#555;line-height:1.7;font-weight:300;">Trilhas de 4 a 12 sessões com mentores especializados</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Revenue calculator — editorial -->
+    <div class="rv" style="border:1px solid #1A1A1A;padding:56px 56px;">
+      <div class="lbl" style="margin-bottom:32px;">Projeção de Escala</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border-top:1px solid #1A1A1A;">
+
+        <div style="padding:32px 32px 32px 0;border-right:1px solid #1A1A1A;">
+          <div class="lbl" style="margin-bottom:14px;">Ticket Médio</div>
+          <div class="snum" style="font-size:3rem;color:#fff;margin-bottom:4px;">R$300</div>
+          <div style="font-size:.75rem;color:#444;">por sessão</div>
+        </div>
+
+        <div style="padding:32px;border-right:1px solid #1A1A1A;">
+          <div class="lbl" style="margin-bottom:14px;color:#C8A455;">Comissão Plataforma</div>
+          <div class="snum" style="font-size:3rem;color:#C8A455;margin-bottom:4px;">R$90</div>
+          <div style="font-size:.75rem;color:#444;">receita por sessão</div>
+        </div>
+
+        <div style="padding:32px;border-right:1px solid #1A1A1A;">
+          <div class="lbl" style="margin-bottom:14px;">1.000 sessões/mês</div>
+          <div class="snum" style="font-size:3rem;color:#fff;margin-bottom:4px;">R$90K</div>
+          <div style="font-size:.75rem;color:#444;">receita mensal</div>
+        </div>
+
+        <div style="padding:32px 0 32px 32px;">
+          <div class="lbl" style="margin-bottom:14px;">Potencial</div>
+          <div class="snum" style="font-size:3rem;color:#fff;margin-bottom:4px;">R$9M</div>
+          <div style="font-size:.75rem;color:#444;">com 100K sessões/mês</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════ MERCADO ═══════════ -->
+<section id="mercado" style="padding:120px 0;background:#060606;border-top:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+  <div class="mw">
+
+    <div class="section-rule rv">
+      <span class="lbl">Potencial de Mercado</span>
+    </div>
+
+    <div style="margin-bottom:80px;">
+      <h2 class="display rv" style="font-size:clamp(2.8rem,6vw,5rem);color:#fff;max-width:840px;margin-bottom:0;">
+        Na interseção de três tendências <em style="color:#C8A455;font-style:italic;">globais.</em>
+      </h2>
+    </div>
+
+    <!-- Big numbers — full width typographic -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;">
+
+      <div class="rv d1" style="padding:56px 48px 56px 0;border-right:1px solid #1A1A1A;">
+        <div class="snum" style="font-size:clamp(3.5rem,7vw,5.5rem);color:#fff;margin-bottom:16px;">$5.9B</div>
+        <div style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:.01em;">Mercado Global de Mentoria</div>
+        <div style="font-size:.8rem;color:#555;line-height:1.75;font-weight:300;">Crescendo 7.1% ao ano — projeção de US$10B até 2030</div>
+      </div>
+
+      <div class="rv d2" style="padding:56px 48px;border-right:1px solid #1A1A1A;">
+        <div class="snum" style="font-size:clamp(3.5rem,7vw,5.5rem);color:#fff;margin-bottom:16px;">$400B</div>
+        <div style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:.01em;">EdTech Global</div>
+        <div style="font-size:.8rem;color:#555;line-height:1.75;font-weight:300;">Tecnologia educacional — crescimento estrutural pós-pandemia</div>
+      </div>
+
+      <div class="rv d3" style="padding:56px 0 56px 48px;">
+        <div class="snum" style="font-size:clamp(3.5rem,7vw,5.5rem);color:#C8A455;margin-bottom:16px;">43M</div>
+        <div style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:.01em;">Profissionais no Brasil</div>
+        <div style="font-size:.8rem;color:#555;line-height:1.75;font-weight:300;">Que buscam desenvolvimento de carreira e crescimento estratégico</div>
+      </div>
+
+    </div>
+
+    <!-- Market segments text -->
+    <div style="margin-top:72px;padding-top:56px;border-top:1px solid #1A1A1A;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:48px;">
+
+        <div class="rv d1">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">Segmento 01</div>
+          <h4 style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:8px;">Economia do Conhecimento</h4>
+          <p style="font-size:.8rem;color:#555;line-height:1.75;font-weight:300;">Profissionais pagam para acessar expertise qualificada e acelerar sua curva de aprendizado.</p>
+        </div>
+
+        <div class="rv d2">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">Segmento 02</div>
+          <h4 style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:8px;">Desenvolvimento Profissional</h4>
+          <p style="font-size:.8rem;color:#555;line-height:1.75;font-weight:300;">Empresas investem crescentemente em desenvolvimento de talentos e lideranças internas.</p>
+        </div>
+
+        <div class="rv d3">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">Segmento 03</div>
+          <h4 style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:8px;">Mentoria Executiva</h4>
+          <p style="font-size:.8rem;color:#555;line-height:1.75;font-weight:300;">CEOs e fundadores demandam orientação estratégica de alto nível de forma sistemática.</p>
+        </div>
+
+        <div class="rv d4">
+          <div class="lbl" style="margin-bottom:12px;color:#C8A455;">Segmento 04</div>
+          <h4 style="font-size:.875rem;font-weight:600;color:#fff;margin-bottom:8px;">Tecnologia Educacional</h4>
+          <p style="font-size:.8rem;color:#555;line-height:1.75;font-weight:300;">IA redefine como o aprendizado e o desenvolvimento humano acontecem em escala global.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════ VISÃO DE FUTURO ═══════════ -->
+<section id="visao" style="padding:120px 0;background:#000;">
+  <div class="mw">
+
+    <div class="section-rule rv">
+      <span class="lbl">Visão de Futuro</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:80px;">
+      <div class="rvl">
+        <h2 class="display" style="font-size:clamp(2.5rem,4.5vw,3.8rem);color:#fff;margin-bottom:24px;">
+          A infraestrutura digital para mentoria inteligente.
+        </h2>
+        <p style="font-size:.95rem;color:#555;line-height:1.85;font-weight:300;">
+          Hoje conectamos mentores a mentorados. Amanhã, construímos o ecossistema completo onde o desenvolvimento humano é contínuo, estruturado e escalável globalmente.
+        </p>
+      </div>
+      <div class="rvr zoom" style="border:1px solid #1A1A1A;">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=85&sat=-20"
+             alt="Ambiente de inovação"
+             style="width:100%;height:280px;object-fit:cover;display:block;filter:brightness(.65) contrast(1.1);">
+      </div>
+    </div>
+
+    <!-- Roadmap — 3 column editorial -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1A1A1A;border-left:1px solid #1A1A1A;">
+
+      <div class="rv d1" style="padding:44px 40px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+        <div class="lbl" style="margin-bottom:6px;">Fase Atual</div>
+        <div style="height:2px;width:32px;background:#C8A455;margin-bottom:24px;"></div>
+        <h3 style="font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:20px;letter-spacing:.01em;">Marketplace & IA</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#C8A455;">—</span>Marketplace de mentores qualificados
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#C8A455;">—</span>Sessões estruturadas com IA
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#C8A455;">—</span>Transcrição e resumos automáticos
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#C8A455;">—</span>Dashboard de evolução
+          </li>
+        </ul>
+      </div>
+
+      <div class="rv d2" style="padding:44px 40px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+        <div class="lbl" style="margin-bottom:6px;">Próximos 12 meses</div>
+        <div style="height:2px;width:32px;background:#555;margin-bottom:24px;"></div>
+        <h3 style="font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:20px;letter-spacing:.01em;">Expansão de Produto</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#555;">—</span>Mentorias em grupo certificadas
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#555;">—</span>Programas premium estruturados
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#555;">—</span>Módulo B2B para empresas e RH
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#555;">—</span>Trilhas de desenvolvimento temáticas
+          </li>
+        </ul>
+      </div>
+
+      <div class="rv d3" style="padding:44px 40px;border-right:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;">
+        <div class="lbl" style="margin-bottom:6px;">Visão de 3 anos</div>
+        <div style="height:2px;width:32px;background:#333;margin-bottom:24px;"></div>
+        <h3 style="font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:20px;letter-spacing:.01em;">Infraestrutura Global</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#333;">—</span>Expansão internacional — América Latina
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#333;">—</span>Ecossistema de especialistas verificados
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#333;">—</span>API para integrações corporativas
+          </li>
+          <li style="font-size:.8rem;color:#555;padding-left:16px;position:relative;font-weight:300;line-height:1.7;">
+            <span style="position:absolute;left:0;color:#333;">—</span>Referência global em mentoria com IA
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ CTA FINAL — Full-bleed cinematic ═══════════ -->
+<section id="contato" style="position:relative;overflow:hidden;border-top:1px solid #1A1A1A;">
+
+  <!-- Full-bleed image -->
+  <div style="position:absolute;inset:0;">
+    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1800&auto=format&fit=crop&q=85&sat=-20"
+         alt="Mentoria estratégica"
+         style="width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:brightness(.3) contrast(1.1);">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,.55);"></div>
+  </div>
+
+  <div class="mw" style="position:relative;padding-top:120px;padding-bottom:120px;">
+    <div style="max-width:760px;">
+
+      <div class="lbl rv" style="color:#C8A455;margin-bottom:24px;">Seja parte da próxima fase</div>
+
+      <h2 class="display rv d1" style="font-size:clamp(3rem,6vw,5rem);color:#fff;margin-bottom:28px;">
+        Pronto para transformar conhecimento em crescimento?
+      </h2>
+
+      <p class="rv d2" style="font-size:.95rem;color:#AAA;line-height:1.85;max-width:540px;margin-bottom:44px;font-weight:300;">
+        Se você é um empresário, mentor experiente ou investidor que enxerga o potencial do MentorMatch — queremos muito conversar com você.
+      </p>
+
+      <div class="rv d3" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:72px;">
+        <a href="mailto:contato@mentormatch.com.br" class="btn-w">Falar com o Time</a>
+        <a href="mailto:contato@mentormatch.com.br" class="btn-ghost">Solicitar Apresentação</a>
+      </div>
+
+      <!-- Final stats — inline editorial -->
+      <div class="rv d4" style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;padding-top:44px;border-top:1px solid rgba(255,255,255,.1);">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1;margin-bottom:4px;">200+</div>
+          <div class="lbl" style="color:#555;">Mentores</div>
+        </div>
+        <div style="width:1px;height:32px;background:#2A2A2A;"></div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1;margin-bottom:4px;">1.200+</div>
+          <div class="lbl" style="color:#555;">Sessões</div>
+        </div>
+        <div style="width:1px;height:32px;background:#2A2A2A;"></div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1;margin-bottom:4px;">98%</div>
+          <div class="lbl" style="color:#555;">Satisfação</div>
+        </div>
+        <div style="width:1px;height:32px;background:#2A2A2A;"></div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#C8A455;line-height:1;margin-bottom:4px;">R$2M+</div>
+          <div class="lbl" style="color:#555;">Realizados</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer style="background:#000;border-top:1px solid #1A1A1A;padding:64px 0 40px;">
+  <div class="mw">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:64px;margin-bottom:56px;">
+
+      <div>
+        <div style="font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:600;color:#fff;letter-spacing:-.01em;margin-bottom:16px;">MentorMatch</div>
+        <p style="font-size:.8rem;color:#444;line-height:1.85;max-width:360px;font-weight:300;">
+          Plataforma de mentorias inteligentes que transforma sessões em crescimento estruturado, com o poder da inteligência artificial.
+        </p>
+      </div>
+
+      <div>
+        <div class="lbl" style="margin-bottom:20px;">Plataforma</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#solucao" style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">Como funciona</a></li>
+          <li><a href="#ia"      style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">Tecnologia IA</a></li>
+          <li><a href="#modelo"  style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">Modelo de negócio</a></li>
+          <li><a href="#mercado" style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">Mercado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="lbl" style="margin-bottom:20px;">Contato</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="mailto:contato@mentormatch.com.br" style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">contato@mentormatch.com.br</a></li>
+          <li><a href="#contato" style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">Seja um mentor</a></li>
+          <li><a href="#contato" style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">Investidores</a></li>
+          <li><a href="#contato" style="font-size:.8rem;color:#444;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">Imprensa</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid #1A1A1A;flex-wrap:wrap;gap:12px;">
+      <p style="font-size:.72rem;color:#333;">© 2024 MentorMatch. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:28px;">
+        <a href="#" style="font-size:.72rem;color:#333;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#777'" onmouseout="this.style.color='#333'">Política de Privacidade</a>
+        <a href="#" style="font-size:.72rem;color:#333;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#777'" onmouseout="this.style.color='#333'">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  /* ── Nav solid on scroll ── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 48);
+  }, { passive: true });
+
+  /* ── Smooth anchor scroll ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  /* ── Scroll reveal ── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(({ isIntersecting, target }) => {
+      if (isIntersecting) { target.classList.add('on'); io.unobserve(target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.rv, .rvl, .rvr').forEach(el => io.observe(el));
+
+  /* ── Responsive: collapse grids on mobile ── */
+  function responsive() {
+    const w = window.innerWidth;
+    const cols2 = document.querySelectorAll('[data-grid2]');
+    cols2.forEach(el => {
+      el.style.gridTemplateColumns = w < 860 ? '1fr' : '1fr 1fr';
+    });
+  }
+</script>
+
+</body>
+</html>
